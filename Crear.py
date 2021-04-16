@@ -2,4 +2,4 @@
 
 def Crear(parametros):
 
-    return 0
+    return "Hello World"
