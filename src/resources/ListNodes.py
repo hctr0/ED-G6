@@ -1,4 +1,4 @@
-from Nodo import *
+from resources.Nodo import *
 class ListNodes:
     def __init__(self,Nodo):
         self.Nodo = Nodo
