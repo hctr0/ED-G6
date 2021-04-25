@@ -1,19 +1,25 @@
-from resources.Nodo import *
-from resources.ListNodes import * 
+from Crud import *
 if __name__ == "__main__":
-    nodo = Nodo("new")
-    listaNodos = ListNodes(nodo)
-    listaNodos.agregarNodo("new2")
-    listaNodos.agregarNodo("new3")
-    listaNodos.agregarNodo("new4")
-    listaNodos.agregarNodo("new5")
-    listaNodos.agregarNodo("new6")
-    listaNodos.agregarNodo("new7")
-    listaNodos.agregarNodo("new8")
-    listaNodos.agregarNodo("new9")
-    listaNodos.agregarNodo("new10")
-    #listaNodos.retornarUltimoNodo(nodo)
-    for i in range(listaNodos.retornarTamano()):
-        print(listaNodos.devolverNodo(i))
-    print(listaNodos.retornarTamano())
+    funciones =Crud()
+    database=DataBase()
+    lista = database.select_all_user()
+    database.close_connection()
+    listaNodos = ListNodes(lista[0][1])
+    i=1
+    while(i<len(lista)):
+        listaNodos.agregarNodo(lista[i][1])         
+        i+=1
+    nombre =input() 
+    A =funciones.Ingreso(listaNodos,nombre)
+    if(A):
+        print("ha ingresado")
+    else:
+        print("Usuario incorrecto")
+        exit()
     
+    #funciones.ActualizarDato(listaNodos, 4,"gio",lista)
+    
+    #funciones.InsertDato(listaNodos, "jjj")
+    #listaNodos.retornarUltimoNodo()
+    #print(funciones.BuscarDato(listaNodos, 0))
+    #funciones.ConsultaTodo(listaNodos)

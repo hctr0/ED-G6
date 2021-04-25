@@ -9,14 +9,13 @@ class DataBase:
             db='py'
         )
         self.cursor = self.connection.cursor()
+        print("Se ha realizado la conexion")
     def select_all_user(self):
         sql = 'SELECT iduser, user, password FROM user'
         try:
             self.cursor.execute(sql)
             users = self.cursor.fetchall()
-            for user in users:
-                print("id ", user[0])
-                print("User", user[1])
+            return users
         except Exception as e:
             raise
     def insert_data(self, data):
@@ -27,8 +26,21 @@ class DataBase:
             print('Se ha guardado exitosamente')
         except Exception as e:
             raise
+    def update_date(self, data,iduser):
+        sql ="UPDATE `py`.`user` SET `user` = '{}' WHERE (`iduser` = '{}')".format(data, iduser)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            print('Se ha actualizado exitosamente')
+        except Exception as e:
+            raise
+    def delete_date(self, iduser):
+        sql ="DELETE FROM `py`.`user` WHERE (`iduser` = '{}')".format(iduser)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            print('Se ha actualizado exitosamente')
+        except Exception as e:
+            raise
     def close_connection(self):
         self.connection.close()
-database=DataBase()
-database.select_all_user()
-database.insert_data("u151")
