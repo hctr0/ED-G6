@@ -10,15 +10,13 @@ if __name__ == "__main__":
         listaNodos.agregarNodo(lista[i][1])         
         i+=1
     nombre =input() 
-    A =funciones.Ingreso(listaNodos,nombre)
-    if(A):
+    ingreso =funciones.Ingreso(listaNodos,nombre)
+    if(ingreso):
         print("ha ingresado")
     else:
         print("Usuario incorrecto")
-        exit()
-    
+        exit()    
     #funciones.ActualizarDato(listaNodos, 4,"gio",lista)
-    
     #funciones.InsertDato(listaNodos, "jjj")
     #listaNodos.retornarUltimoNodo()
     #print(funciones.BuscarDato(listaNodos, 0))

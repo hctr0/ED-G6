@@ -38,6 +38,18 @@ class Crud:
         for i in range(listaNodos.retornarTamano()):
             if(user==listaNodos.devolverData(i)):
                 return True
-        return False    
-
+        return False   
+    def OrdenarListaAlfabeticamente(self,lista):
+        listaNueva=[]
+        i=1
+        while(i<len(lista)):
+            listaNueva.append(str(lista[i][1]))         
+            i+=1
+        listaNueva.sort()
+        listaNodos = ListNodes(listaNueva[0])
+        i2=1
+        while(i2<len(listaNueva)):
+            listaNodos.agregarNodo(listaNueva[i2])         
+            i2+=1
+        return listaNodos
 
