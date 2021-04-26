@@ -1,12 +1,16 @@
 from resources.Nodo import *
+
+
 class ListNodes:
     def __init__(self,data):
         self.Nodo = Nodo(data)
         self.tam =1
         self.head =self.Nodo
 
+
+    #AGREGA UN NODO Y AUMENTA EN 1 SU TAMAÑO
     def agregarNodo(self,data, nodo2 = None):
-        node =Nodo(data)
+        node = Nodo(data)
         if(self.Nodo.siguiente == None):
             self.Nodo.siguiente = node
             self.tam +=1

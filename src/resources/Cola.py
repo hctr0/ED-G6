@@ -32,8 +32,12 @@ class Queue:
     #LA FUNCIÓN dequeue REGRESA EL PRIMER VALOR DE LA COLA, SACANDOLO DE ESTA.
     def dequeue(self):
         aux = self.head
-        self.head = self.head.next
-        return aux
+        if (self.head == None):
+            print("Empty Queue")
+            return None
+        else:
+            self.head = self.head.next
+            return aux
 
     #LA FUNCIÓN is_empty REGRESA UN BOOLEANO, TRUE SI ESTÁ VACÍA, FALSE SI TIENE ALGUN ELEMENTO 
     def is_empty(self):
@@ -45,9 +49,14 @@ class Queue:
     #FUNCIÓN EXTRA QUE PERMITE IMPRIMIR TODOS LOS VALORES DE LA COLA SEGUIDOS DE UN SALTO DE LINEA
     def print_all(self):
         aux = self.head
-        if(aux.value!=None):
+        if(aux!=None):
             while(aux!= None):
                 print(aux.value)
                 aux = aux.next
+        elif (aux == None):
+            print("Empty Queue")
+
         else:
             print("Empty")
+
+
