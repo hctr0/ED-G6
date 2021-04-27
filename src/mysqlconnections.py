@@ -11,7 +11,7 @@ class DataBase:
         self.cursor = self.connection.cursor()
         print("Se ha realizado la conexion")
     def select_all_user(self):
-        sql = 'SELECT iduser, user, password FROM user'
+        sql = 'SELECT id, user, password FROM user'
         try:
             self.cursor.execute(sql)
             users = self.cursor.fetchall()
@@ -27,7 +27,7 @@ class DataBase:
         except Exception as e:
             raise
     def update_date(self, data,iduser):
-        sql ="UPDATE `py`.`user` SET `user` = '{}' WHERE (`iduser` = '{}')".format(data, iduser)
+        sql ="UPDATE `py`.`user` SET `user` = '{}' WHERE (`id` = '{}')".format(data, iduser)
         try:
             self.cursor.execute(sql)
             self.connection.commit()
@@ -35,7 +35,7 @@ class DataBase:
         except Exception as e:
             raise
     def delete_date(self, iduser):
-        sql ="DELETE FROM `py`.`user` WHERE (`iduser` = '{}')".format(iduser)
+        sql ="DELETE FROM `py`.`user` WHERE (`id` = '{}')".format(iduser)
         try:
             self.cursor.execute(sql)
             self.connection.commit()

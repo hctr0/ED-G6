@@ -6,36 +6,30 @@ class ListNodes:
         self.Nodo = Nodo(data)
         self.tam =1
         self.head =self.Nodo
-
+        self.tail =self.Nodo.siguiente
 
     #AGREGA UN NODO Y AUMENTA EN 1 SU TAMAÑO
-    def agregarNodo(self,data, nodo2 = None):
+    def agregarNodo(self,data):
         node = Nodo(data)
         if(self.Nodo.siguiente == None):
             self.Nodo.siguiente = node
             self.tam +=1
             return
         else:
-            if(nodo2 !=None):
-                if(nodo2.siguiente==None):
-                    nodo2.siguiente =node
-                    self.tam +=1
-                else:
-                    self.agregarNodo(data,nodo2.siguiente)    
-            else:
-                self.agregarNodo(data,self.Nodo.siguiente)    
-    def retornarUltimoNodo(self, nodo2=None):
-        if(self.Nodo.siguiente == None):
-            print(self.Nodo.data)
-        else:
-            if(nodo2 !=None):
-                if(nodo2.siguiente==None):
-                    print(nodo2.data)
+            nodo1 = self.Nodo
+            acceso = True
+            while(acceso):
+                if(nodo1.siguiente == None):
+                    nodo1.siguiente=node
+                    self.tail = node
+                    self.tam += 1
                     return
                 else:
-                    self.retornarUltimoNodo(nodo2.siguiente)    
-            else:
-                self.retornarUltimoNodo(self.Nodo.siguiente)
+                    nodo1 = nodo1.siguiente
+            
+    def retornarUltimoNodo(self):
+        return self.tail.data
+            
     def retornarTamano(self):
         return self.tam
     def devolverData(self, posicion):
@@ -77,6 +71,8 @@ class ListNodes:
                         nodo2.siguiente =nodo.siguiente
                     else:
                         self.head = nodo.siguiente
+                if(nodo.data == self.tail.data):
+                    self.tail =self.devolverNodo(posicion-1)
                 nodo.data=None
                 self.tam-=1
                 return

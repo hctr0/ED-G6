@@ -34,6 +34,13 @@ class Crud:
     def ConsultaTodo(self,listaNodos):
         for i in range(listaNodos.retornarTamano()):
             print(listaNodos.devolverData(i))
+    def AgregarDatosListas(self, lista):
+        listaNodos = ListNodes(lista[0][1])
+        i=1
+        while(i<100000):
+            listaNodos.agregarNodo(lista[i][1])         
+            i+=1
+        return listaNodos
     def Ingreso(self, listaNodos, user):
         for i in range(listaNodos.retornarTamano()):
             if(user==listaNodos.devolverData(i)):
@@ -42,7 +49,7 @@ class Crud:
     def OrdenarListaAlfabeticamente(self,lista):
         listaNueva=[]
         i=1
-        while(i<len(lista)):
+        while(i<100000):
             listaNueva.append(str(lista[i][1]))         
             i+=1
         listaNueva.sort()

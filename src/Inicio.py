@@ -1,4 +1,5 @@
 from Crud import *
+from time import time
 import os 
 
 clearlnx = lambda: os.system('clear')
@@ -7,7 +8,6 @@ clearwin = lambda: os.system('cls')
 
 def menu_principal():
     clearlnx()
-    clearwin()
     print(" Bienvenido al sistema ")
     print("Por favor seleccione una de las siguientes opciones: ")
     print("1. Editar usuarios")
@@ -20,37 +20,81 @@ def menu_principal():
 
 def menu_usuario(funciones, listaNodos, lista):
     clearlnx()
-    clearwin()
     print("Usuarios")
     print("1. Agregar Usuario")
     print("2. Borrar Usuario")
     print("3. Mostrar todos los usuarios")
-    print("4. Regresar")
+    print("4. Ordenar lista ALfabeticamente")
+    print("5. Actualizar dato")
+    print("6. Recibir un dato")
+    print("7. Regresar")
     opt = input()
     
     if (opt == "1"):
         nuevouser = input("Ingrese el nombre de usuario: ")
-        funciones.InsertDato(listaNodos, nuevouser, lista)
+        startTime = time()
+        funciones.InsertDato(listaNodos, nuevouser)
+        lastTime = time() -startTime
+        print(lastTime)
         print("Agregando usuario")
         print("Presione enter para continuar")
         input()
 
     elif (opt == "2"):
         pos = int(input("Seleccione la posición: "))
-        funciones.Eliminando(listaNodos, pos, lista )
-        print("Eliminando usuario")
+        userName = funciones.BuscarDato(listaNodos, pos)
+        startTime = time()
+        funciones.EliminarDato(listaNodos, pos, lista )
+        lastTime = time() -startTime
+        print(lastTime)
+        print("Eliminado usuario " + userName  )
         print("Presione enter para continuar")
         input()
 
     elif (opt == "3"):
         print("Imprimiendo todos los usuarios")
+        startTime = time()
         funciones.ConsultaTodo(listaNodos)
+        lastTime = time() -startTime
+        print(lastTime)
         print("Todos los usuarios impresos")
         print("Presione enter para continuar")
         input()
 
     elif (opt == "4"):
-        return opt
+        print("Organizando los datos")
+        startTime = time()
+        listaNodos = funciones.OrdenarListaAlfabeticamente(lista)
+        lastTime = time() -startTime
+        funciones.ConsultaTodo(listaNodos)
+        print(lastTime)
+        print("Datos organizados")
+        print("Presione enter para continuar")
+        input()
+    elif (opt == "5"):
+        print("Actualizar dato")
+        print("Digite la posicion que desea editar")
+        posicion = int(input())
+        print("Digite el nuevo nombre")
+        value = input()
+        startTime = time()
+        funciones.ActualizarDato(listaNodos, posicion, value, lista)
+        lastTime = time() -startTime
+        print(lastTime)
+        print("Datos actualizado")
+        print("Presione enter para continuar")
+        input()
+    elif (opt == "6"):
+        print("Retornar dato")
+        print("Digite la posicion del dato que desea recibir")
+        posicion = int(input())
+        startTime = time()
+        print("El dato en la posisicio {} es ".format(posicion) +funciones.BuscarDato(listaNodos, posicion))
+        lastTime = time() -startTime
+        print(lastTime)
+        print("Datos actualizado")
+        print("Presione enter para continuar")
+        input()
     else:
         print("Opción no válida")
         print("Volviendo al menú principal")    
@@ -59,7 +103,6 @@ def menu_usuario(funciones, listaNodos, lista):
 
 def menu_solicitudes(funciones, listaNodos, lista):
     clearlnx()
-    clearwin()
     print("Solicitudes")
     print("1. Elegir solicitud")
     print("2. Cambiar estado de solicitud")
@@ -76,26 +119,28 @@ def menu_solicitudes(funciones, listaNodos, lista):
         input()
 
     elif (opt == "3"):
-        return opt    
+        return exit()    
     else:
         print("Opción no válida")
         print("Volviendo al menú principal")    
         input()
 
+def traerDatoInicio():
+    return 801;
 
 
 
 if __name__ == "__main__":
-
     funciones =Crud()
     database=DataBase()
     lista = database.select_all_user()
     database.close_connection()
-    listaNodos = ListNodes(lista[0][1])
-    i=1
-    while(i<len(lista)):
-        listaNodos.agregarNodo(lista[i][1])         
-        i+=1
+    startTime = time()
+    listaNodos = funciones.AgregarDatosListas(lista)
+    lastTime = time() -startTime
+    print(lastTime)
+         
+    print("Ingrese su nombre de usuario")
     nombre =input() 
     State = funciones.Ingreso(listaNodos,nombre)
 
@@ -105,12 +150,6 @@ if __name__ == "__main__":
     else:
         print("Usuario incorrecto")
         exit()
-
-
-
-    
-
-
     #MENU PRINCIPAL QUE TOMA LAS FUNCIONES ARRIBA
     while True:
         opt = menu_principal()
