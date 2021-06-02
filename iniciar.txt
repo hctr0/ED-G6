@@ -1,0 +1,4 @@
+ source /home/jean/ED-G6/env/bin/activate
+(env) jean@jean-System-Product-Name:~/ED-G6$ export FLASK_APP=src
+(env) jean@jean-System-Product-Name:~/ED-G6$ export FLASK_DEBUG=1
+(env) jean@jean-System-Product-Name:~/ED-G6$ flask run

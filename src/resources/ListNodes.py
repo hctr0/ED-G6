@@ -1,4 +1,4 @@
-from resources.Nodo import *
+from .Nodo import *
 
 
 class ListNodes:
@@ -7,7 +7,7 @@ class ListNodes:
         self.tam =1
         self.head =self.Nodo
         self.tail =self.Nodo.siguiente
-
+    
     #AGREGA UN NODO Y AUMENTA EN 1 SU TAMAÑO
     def agregarNodo(self,data):
         node = Nodo(data)
@@ -33,7 +33,7 @@ class ListNodes:
     def retornarTamano(self):
         return self.tam
     def devolverData(self, posicion):
-        nodo = self.Nodo
+        nodo = self.head
         i = 0
         while(i<self.tam):
             if(i==posicion):
@@ -42,7 +42,7 @@ class ListNodes:
                 nodo = nodo.siguiente
                 i+=1
     def devolverNodo(self, posicion):
-        nodo = self.Nodo
+        nodo = self.head
         i = 0
         while(i<self.tam):
             if(i==posicion):

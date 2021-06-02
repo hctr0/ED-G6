@@ -3,10 +3,10 @@ import pymysql
 class DataBase:
     def __init__(self):
         self.connection = pymysql.connect(
-            host = 'localhost',#ip
-            user='root',
-            password = '12',
-            db='py'
+            host = 'bg5m5ny2senqgkimy678-mysql.services.clever-cloud.com',#ip
+            user='uzxpqo8j0ozt5cpg',
+            password = 'IdBAaIBrbhWUxxRBqPSi',
+            db='bg5m5ny2senqgkimy678'
         )
         self.cursor = self.connection.cursor()
         print("Se ha realizado la conexion")
