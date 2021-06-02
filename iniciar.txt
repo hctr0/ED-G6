@@ -1,4 +1,18 @@
- source /home/jean/ED-G6/env/bin/activate
-(env) jean@jean-System-Product-Name:~/ED-G6$ export FLASK_APP=src
-(env) jean@jean-System-Product-Name:~/ED-G6$ export FLASK_DEBUG=1
-(env) jean@jean-System-Product-Name:~/ED-G6$ flask run
+Windows
+> cd ED-G6/
+> py -3 -m venv env
+> env\scripts\activate
+pip install -r requirements.txt
+set FLASK_APP=src
+set FLASK_DEBUG=1
+flask run
+
+
+linux
+$ cd ED-G6/
+$ python3 -m venv env
+$ source env/bin/activate
+pip install -r requirements.txt 
+(env)/ED-G6$ export FLASK_APP=src
+(env) export FLASK_DEBUG=1
+(env) flask run
