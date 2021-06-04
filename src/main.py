@@ -26,4 +26,25 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user.user)
+    user =current_user.user
+    user_rol = int.from_bytes(current_user.role,byteorder='big')        
+    rol=''
+    print(user_rol)
+    if user_rol:
+        rol='estudent'
+    else:
+            rol='admin'
+    return render_template('profile.html', user=user,rol=rol)
+@main.route('/profileA')
+@login_required
+def profileA():
+        user =current_user.user
+        user_rol = int.from_bytes(current_user.role,byteorder='big')        
+        rol=''
+        print(user_rol)        
+        rol=''
+        if user_rol:
+            rol='estudent'
+        else:
+            rol='admin'
+        return render_template('profileA.html', user=user, rol=rol)

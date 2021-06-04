@@ -7,6 +7,7 @@ from .models import User
 from src.resources.ListNodes import *
 from . import db
 from .Crud import *
+#https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css
 auth = Blueprint('auth', __name__)
 funciones =Crud()
 def create_local_list_users():
@@ -27,42 +28,56 @@ def create_local_list_users():
     lista_nodos = funciones.AgregarDatosListas(result_lista)
 @auth.route('/login')
 def login():
-    create_local_list_users()
+    #create_local_list_users()
     #print(User.query.all())
     return render_template('login.html')
 
 @auth.route('/login', methods=['POST'])
 def login_post():
     user = request.form.get('email')
+    global password
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
-    print(funciones.BuscarDato(lista_nodos, user).user)
-    if  funciones.ExisteDato_boolean(lista_nodos,user):
-        user1 = funciones.BuscarDato(lista_nodos, user)
-        print("user 1 ",user1)
-        if user1.password==password:
-            try:
-                user2 = User.query.filter_by(user=user1.user).first()
-            except Exception as error:
-                raise error
-            finally:
-                db.session.close_all()
-                db.session.remove()
-            try:
-                login_user(user2, remember=remember, duration=True)    
-            except Exception as error:
-                raise error
-            finally:
-                db.session.close()
-            
-            print('paso1')
-            return redirect(url_for('main.profile'))
-        else:
-            flash('Please check your login details and try again.')
-            return redirect(url_for('main.profile'))
-    else:
+    #print(funciones.BuscarDato(lista_nodos, user).user)
+    user2 = User.query.filter_by(user=user).first()
+    if not user2 or not user2.password == password:
         flash('Please check your login details and try again.')
+        return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
+    login_user(user2, remember=remember)
+    if(int.from_bytes(user2.role,byteorder='big')  ):
         return redirect(url_for('main.profile'))
+    else:
+        return redirect(url_for('main.profileA'))
+
+    
+    # if the above check passes, then we know the user has the right credentials
+    
+    #if  funciones.ExisteDato_boolean(lista_nodos,user):
+    #    user1 = funciones.BuscarDato(lista_nodos, user)
+    #    print("user 1 ",user1)
+    #    if user1.password==password:
+    #        try:
+    #            user2 = User.query.filter_by(user=user1.user).first()
+    #        except Exception as error:
+    #            raise error
+    #        finally:
+    #            db.session.close_all()
+    #            db.session.remove()
+    #        try:
+    #            login_user(user2, remember=remember, duration=True)    
+    #        except Exception as error:
+    #            raise error
+    #        finally:
+    #            db.session.close()
+            
+    #        print('paso1')
+    #        return redirect(url_for('main.profile'))
+    #    else:
+    #        flash('Please check your login details and try again.')
+    #        return redirect(url_for('main.profile'))
+    #else:
+    #    flash('Please check your login details and try again.')
+    #    return redirect(url_for('main.profile'))
         
     
 
@@ -98,9 +113,17 @@ def signup_post():
 
     return redirect(url_for('auth.login'))
 @auth.route('/solicitudes')
+@login_required
 def solicitudes():
     return render_template('quer.html')
 @auth.route('/solicitudes', methods=['POST'])
+@login_required
 def solicitudes_post():
     solicitud = request.form.get('Solicitudes')
     return render_template('formulario.html', solicitud=solicitud)
+@auth.route('/formulario', methods=['POST'])
+def formulario_post():
+    nombre = request.form.get('nombre')
+    programa = request.form.get('programa')
+    print(nombre, programa)
+    return render_template('index.html')
