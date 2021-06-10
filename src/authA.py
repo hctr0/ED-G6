@@ -7,6 +7,20 @@ from .models import  User
 from src.resources.ListNodes import *
 from . import db
 authA = Blueprint('authA', __name__)
-@authA.route('/solicitudesA')  # las rutas de administrador deben ser distintas a las del usuario auth*--- verificar el html en solicitudes hay un ejemplo de if 
+
+
+
+#UN ESTUDIANTE LOGEADO PUEDE ACCEDER AQUI, BUSCAR UNA FORMA DE NO VALIDAR EL INGRESO
+# USANDO EL BYTE DE LA BASE DE DATOS
+
+
+#ESTO NECESITA BACKEND ENTERO -- VER querA.html para más info
+@authA.route('/solicitudesA')  # las rutas de administrador deben ser distintas a las del usuario auth*--- verificar el html en solicitudes hay un ejemplo de if
 def solicitudesA():
     return render_template('querA.html')
+
+
+#ESTO NECESITA BACKEND ENTERO -- VER historialsolicitudesA.html para más info
+@authA.route('/historialsolicitudesA')
+def historialsolicitudesA():
+    return render_template('historialsolicitudesA.html')
