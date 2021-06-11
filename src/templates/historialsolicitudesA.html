@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+<!--ESTO DEBE MOSTRAR LA LISTA PERO USANDO LAS SOLICITUDES QUE SE ENCUENTREN EN LA BASE DE DATOS -->
+{% block content %}
+
+<title> Historial de Solicitudes</title>
+
+<!--LA TABLA ES FEA, NECESARIO ARREGLARLA -->
+
+<table class="table table-hover table-dark" >
+    <thead>
+        <tr>
+          <!-- FILAS: -->
+            <th scope="col" >ID</th>
+            <th scope="col">Tipo de solicitud</th>
+            <th scope="col">Estado</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- COLUMNAS: -->
+            <tr>
+                <td>Value for Id</td>
+                <td>Value for Solicitud</td>
+                  <td>Value for Estado</td>
+            </tr>
+    </tbody>
+</table>
+
+{% endblock %}

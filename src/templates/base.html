@@ -43,7 +43,7 @@
                              {{current_user.get_role()}}
                         </a>
                         {% endif %}
-                        
+
                         {% endif %}
                         {% if current_user.is_authenticated %}
                         <a href="{{ url_for('auth.logout') }}" class="navbar-item">

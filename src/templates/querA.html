@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-hola
+
+
 <div class="column is-4 is-offset-4">
     <h3 class="title">Programas curriculares</h3>
     <div class="box">
-        <form method="POST" action="/solicitudes">
+        <form method="POST" action="/solicitudesA">
             <select name = "Solicitudes">
-                <option value="Ingenieria de Sistemas">Ingenieria de Sistemas</option>
-                <option value="Ingenieria Electrica">Ingenieria Electrica</option>
+               <!-- ESTE TEXTO NECESITA ARREGLO, ES MUY PEQUEÑO Y NO CONCUERDA CON LA FUENTE DEL RESTO
+                    VER CSS PARA ARREGLARLO     -->
+                <option value="Traslado">Traslado</option>
+                <option value="Cambio de grupo">Cambio de grupo</option>
+
             </select>
-            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Programa</button>
+            <!-- ESTOS BOTONES NO FUNCIONAN, ES NECESARIO ARREGLAR EL MÉTODO 'POST' -->
+            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Solicitud</button>
+            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Historial</button>
         </form>
+        
     </div>
 </div>
 {% endblock %}
