@@ -4,7 +4,7 @@
 <div class="column is-4 is-offset-4">
     <h3 class="title">{{solicitud}}</h3>
     <div class="box">
-        <form method="POST" action="/formulario">
+        <form method="POST" action="/formulario" >
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="nombre" name="nombre" placeholder="Nombre" autofocus="">
@@ -17,12 +17,14 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large2" type="Justificacion" name="Justificacion" placeholder="Justificacion">
+                    <textarea name="justificacion" cols="19" rows="10" placeholder="Justificación"></textarea>
                 </div>
             </div>
 
             <button class="button is-block is-info is-large is-fullwidth">Regitrar solicitud</button>
+            
         </form>
+        
     </div>
 </div>
 {% endblock %}

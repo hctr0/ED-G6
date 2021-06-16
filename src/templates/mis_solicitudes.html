@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table>
+  <tr>
+    <th>Tipo solicitud</th>
+    <th>          Respuesta</th>
+  </tr>  
+    {% for solicitud in solicitud_usuario %}
+    <tr>
+      <td>{{solicitud.solicitud}}</td>
+      {% if solicitud.respuesta %}
+      <td>{{solicitud.respuesta}}</td>
+      {% else %}
+      <td> No hay respuesta</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+  {% endblock %}

@@ -33,7 +33,7 @@ def profile():
     if user_rol:
         rol='estudent'
     else:
-            rol='admin'
+        rol='admin'
     return render_template('profile.html', user=user,rol=rol)
 @main.route('/profileA')
 @login_required

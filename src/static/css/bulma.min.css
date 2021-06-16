@@ -2807,7 +2807,9 @@ a.box:active {
 }
 .input.is-large2,
 .textarea.is-large {
- font-size:5rem;
+ font-size:1.5rem;
+ width: 25rem;
+ height: 25rem;
 }
 .input.is-fullwidth,
 .textarea.is-fullwidth {

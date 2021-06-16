@@ -12,9 +12,6 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://uzxpqo8j0ozt5cpg:IdBAaIBrbhWUxxRBqPSi@bg5m5ny2senqgkimy678-mysql.services.clever-cloud.com/bg5m5ny2senqgkimy678'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_POOL_SIZE']=200
-    #app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    #'poolclass': NullPool,
-    #}
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
     db = SQLAlchemy(app)

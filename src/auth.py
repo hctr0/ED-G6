@@ -1,9 +1,10 @@
+from html.entities import html5
 from flask import Blueprint, render_template, redirect, url_for, request, flash, app
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from flask_marshmallow import Marshmallow
 from sqlalchemy.orm import query
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, Solicitudes
 from src.resources.ListNodes import *
 from . import db
 from .Crud import *
@@ -112,6 +113,8 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     return redirect(url_for('auth.login'))
+
+
 @auth.route('/solicitudes')
 @login_required
 def solicitudes():
@@ -119,11 +122,27 @@ def solicitudes():
 @auth.route('/solicitudes', methods=['POST'])
 @login_required
 def solicitudes_post():
+    print(request.form)
+    global solicitud
     solicitud = request.form.get('Solicitudes')
     return render_template('formulario.html', solicitud=solicitud)
 @auth.route('/formulario', methods=['POST'])
 def formulario_post():
+    print(request.form.get)
+    print(solicitud)
     nombre = request.form.get('nombre')
     programa = request.form.get('programa')
-    print(nombre, programa)
-    return render_template('index.html')
+    justificacion= request.form.get('justificacion')
+    new_query = Solicitudes(current_user.id,solicitud, nombre,programa,justificacion)
+    #print()
+    db.session.add(new_query)
+    db.session.commit()
+    db.session.close()
+    return render_template('formulario-completado.html')
+@auth.route('/mis_solicitudes', methods=['POST'])
+@login_required
+def mis_solicitudes():
+    idUser=current_user.id
+    solicitud_usuario = db.session.query(Solicitudes).filter_by(idUser = idUser).all()
+    print(solicitud_usuario[0].respuesta)
+    return render_template('mis_solicitudes.html', solicitud_usuario=solicitud_usuario)
