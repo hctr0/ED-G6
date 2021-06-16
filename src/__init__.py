@@ -1,5 +1,6 @@
 from re import X
 from flask import Flask
+from flask_appconfig import HerokuConfig
 from sqlalchemy.orm import session
 from sqlalchemy.pool import NullPool
 from flask_sqlalchemy import SQLAlchemy
@@ -14,6 +15,7 @@ def create_app():
     app.config['SQLALCHEMY_POOL_SIZE']=200
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
+    HerokuConfig(app, None)
     db = SQLAlchemy(app)
     
     db.init_app(app)
@@ -24,7 +26,7 @@ def create_app():
         engine_container.dispose()
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
-    login_manager.init_app(app) 
+    login_manager.init_app(app)
     from .models import User
     @login_manager.user_loader
     def load_user(user_id):
