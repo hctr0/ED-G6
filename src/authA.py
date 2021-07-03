@@ -14,14 +14,14 @@ authA = Blueprint('authA', __name__)
 # USANDO EL BYTE DE LA BASE DE DATOS
 
 
-#ESTO NECESITA BACKEND ENTERO -- VER querA.html para más info
 @authA.route('/solicitudesA', methods=['GET', 'POST'])  # las rutas de administrador deben ser distintas a las del usuario auth*--- verificar el html en solicitudes hay un ejemplo de if
 def solicitudesA():
     return render_template('querA.html')
 
 
+#ESTO NECESITA MOSTRAR LOS DATOS EN LA LISTA Y TERMINADO
 
-#ESTO NECESITA BACKEND ENTERO -- VER historialsolicitudesA.html para más info
+
 @authA.route('/Historial_Administrativo', methods=['GET','POST'])
 @login_required
 def historialsolicitudesA():
