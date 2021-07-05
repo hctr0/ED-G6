@@ -17,7 +17,6 @@ def create_app():
     app.config['SESSION_TYPE'] = 'filesystem'
     HerokuConfig(app, None)
     db = SQLAlchemy(app)
-    
     db.init_app(app)
     engine_container = db.get_engine(app)
     def cleanup(session):

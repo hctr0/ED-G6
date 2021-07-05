@@ -9142,3 +9142,11 @@ label.panel-block:hover {
  background-color:#fafafa;
  padding:3rem 1.5rem 6rem
 }
+.info{
+    color: red;
+    position: relative;
+    top: -50px;
+    left: 200px;
+    background-color: #1496ED;
+    border-radius: 5px;
+  }

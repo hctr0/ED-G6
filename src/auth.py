@@ -132,4 +132,5 @@ def formulario_post():
 def mis_solicitudes():
     idUser=current_user.id
     solicitud_usuario = db.session.query(Solicitudes).filter_by(idUser = idUser).all()
+    print(type(solicitud_usuario))
     return render_template('mis_solicitudes.html', solicitud_usuario=solicitud_usuario)
