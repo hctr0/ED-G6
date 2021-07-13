@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 <!--ESTO DEBE MOSTRAR LA LISTA PERO USANDO LAS SOLICITUDES QUE SE ENCUENTREN EN LA BASE DE DATOS -->
-{% block content %}
+{%block content%}
+<h3 class="title"> Solicitudes Pendientes </h3>
 
-<h3 class="title">Historial de solicitudes</h3>
+
 <!--LA TABLA ES FEA, NECESARIO ARREGLARLA -->
 
 <table width=100% class="table table-hover table-dark" >
@@ -13,7 +14,6 @@
             <th scope="col" >ID</th>
             <th scope="col">Tipo de solicitud</th>
             <th scope="col">Estado</th>
-            <th scope="col">
 
         </tr>
     </thead>

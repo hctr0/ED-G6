@@ -4,15 +4,20 @@
 
 
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Programas curriculares</h3>
+    <h3 class="title">Revisión de solicitudes</h3>
     <div class="box">
-        <form method="POST" action="/solicitudesA">
-            
+        <form method="POST" action="/Solicitudes_Pendientes_Admin">
+
             <!-- ESTOS BOTONES NO FUNCIONAN, ES NECESARIO ARREGLAR EL MÉTODO 'POST' -->
-            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Solicitud</button>
-            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Historial</button>
+            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth" value="solicitud">Solicitudes pendientes</button>
+
         </form>
-        
+
+        <form method="POST" action="/Historial_Administrativo">
+            <button style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth" value="historial">Historial</button>
+
+        </form>
+
     </div>
 </div>
 {% endblock %}
