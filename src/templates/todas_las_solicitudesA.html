@@ -6,25 +6,23 @@
 
 
 <!--LA TABLA ES FEA, NECESARIO ARREGLARLA -->
-
-<table width=100% class="table table-hover table-dark" >
-    <thead>
-        <tr>
-          <!-- FILAS: -->
-            <th scope="col" >ID</th>
-            <th scope="col">Tipo de solicitud</th>
-            <th scope="col">Estado</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        <!-- COLUMNAS: -->
-            <tr>
-                <td>Value for Id</td>
-                <td>Value for Solicitud</td>
-                  <td>Value for Estado</td>
-            </tr>
-    </tbody>
-</table>
+<table>
+    <tr>
+        <th>idUser</th>
+      <th>Tipo solicitud</th>
+      <th>          Respuesta</th>
+    </tr>  
+      {% for solicitud in solicitud_usuario %}
+      <tr>
+        <td>{{solicitud.idUser}}</td>
+        <td>{{solicitud.solicitud}}</td>
+        {% if solicitud.respuesta %}
+        <td>{{solicitud.respuesta}}</td>
+        {% else %}
+        <td> No hay respuesta</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+  </table>
 
 {% endblock %}

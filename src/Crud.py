@@ -1,58 +1,43 @@
 from src.resources.ListNodes import *
+from src.resources.Arbolavl import *
 from .models import User
 class Crud:
     #ESTA FUNCION ACTUALIZA UN DATO EN LA ESTRUCTURA
-    def ActualizarDato(self, listaNodos, posicion, value,lista):
-        listaNodos.editarNodo(posicion, value)
+    def ActualizarDato(self, arbol, value):
+        arbol.search(arbol.root, value)
     #FUNCION DISEÑADA PARA INSERTAR UN DATO
-    def InsertDato(self, listaNodos, data):
-        listaNodos.agregarNodo(data)
+    def InsertDato(self, arbol, data):
+        arbol.insert(arbol.node.key,data)
     #ESTA FUNCIÓN ELIMINA UN DATO DE LA ESTRUCTURA
-    def EliminarDato(self, listaNodos,posicion,lista):
-        listaNodos.eliminarNodo(posicion)
+    def EliminarDato(self, arbol,posicion,lista):
+        arbol.eliminarNodo(posicion)
 
     #ESTA FUNCIÓN BUSCA UN DATO EN LA ESTRUCTURA
-    def ExisteDato_boolean(self,listaNodos, user):
-        for i in range(listaNodos.retornarTamano()):
-            if(listaNodos.devolverData(i).get('user')==user):
-                return True
-        return False
-    def BuscarDato(self,listaNodos, user):
-        #print(user, )
-        for i in range(listaNodos.retornarTamano()):
-            print(listaNodos.devolverData(i).get('user'), "  -- ", user)
-            if(listaNodos.devolverData(i).get('user')==user):
-                user1 = User(listaNodos.devolverData(i).get('user'),listaNodos.devolverData(i).get('password'))
-                return user1
-        print('No existe el usuario')
+    def ExisteDato_boolean(self,arbol, user):
+        try:
+            arbol.search(arbol.root, user)
+            return True
+        except:
+            return False
+            
+    def BuscarDato(self,arbol, user):
+        return arbol.search(arbol.root,user)
 
     #ESTA FUNCIÓN CONSULTA TODOS LOS DATOS DE LA ESTRUCTURA
-    def ConsultaTodo(self,listaNodos):
-        for i in range(listaNodos.retornarTamano()):
-            print(listaNodos.devolverData(i))
+    def ConsultaTodo(self,arbol):
+        for i in range(arbol.retornarTamano()):
+            print(arbol.devolverData(i))
     def AgregarDatosListas(self, lista):
-        listaNodos = ListNodes(lista[0])
+        nodo=Node(lista[0].get('id'),lista[0])
+        arbol = AVLtree(nodo)
         i=1
         while(i<1000):
-            listaNodos.agregarNodo(lista[i])         
+            arbol.insert(arbol.root,lista[i].get('id'),lista[i])
             i+=1
-        return listaNodos
-    def Ingreso(self, listaNodos, user):
-        for i in range(listaNodos.retornarTamano()):
-            if(user==listaNodos.devolverData(i)):
+        return arbol
+    def Ingreso(self, arbol, user):
+        for i in range(arbol.retornarTamano()):
+            if(user==arbol.devolverData(i)):
                 return True
-        return False   
-    def OrdenarListaAlfabeticamente(self,lista):
-        listaNueva=[]
-        i=1
-        while(i<1000):
-            listaNueva.append(str(lista[i][1]))         
-            i+=1
-        listaNueva.sort()
-        listaNodos = ListNodes(listaNueva[0])
-        i2=1
-        while(i2<len(listaNueva)):
-            listaNodos.agregarNodo(listaNueva[i2])         
-            i2+=1
-        return listaNodos
+        return False 
 

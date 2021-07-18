@@ -1,16 +1,23 @@
+from copy import error
+
+
 class Node():
 
-    def __init__(self, key, right = None, left = None, parent = None, height = 1):
+    def __init__(self, key, object=None, right = None, left = None, parent = None, height = 1):
         self.key = key
         self.right = right
         self.left = left
         self.parent = parent
         self.height = height
+        self.object = object
 
 
 
 
 class AVLtree():
+    def __init__(self, node):
+        self.root=node
+        
     def getHeight(self, root):
         if root == None:
             return 0
@@ -27,6 +34,7 @@ class AVLtree():
 
         z.height = 1 + max(self.getHeight(z.left), self.getHeight(z.right))
         y.height = 1 + max(self.getHeight(y.left), self.getHeight(y.right))
+        return y
 
 
     def Rotateright(self,z):
@@ -42,60 +50,53 @@ class AVLtree():
         return y
 
 
-    def search(self, key, root):
-        if key == root.key:
-            return root
-        elif key < root.key:
-            if root.left != None: 
-                self.search(key, root.left)
-            else:
-                return root
-        elif key>root.key:
-            if root.left != None:
-                self.search(key, root.right)
-            else:
-                return root
+    def search(self, root, key):
+        while root.key!=None:
+            if key == root.key:
+                return root.object
+            elif key < root.key:
+                if root.left != None: 
+                    root = root.left
+                else:
+                    return error
+            elif key>root.key:
+                if root.right != None:
+                    root = root.right
+                else:
+                    return error    
+        
 
-
-    def insert(self, root, key):
+    def getBalance(self, root):
         if not root:
-            return Node(key)
-        elif key < root.val:
-            root.left = self.insert(root.left, key)
+            return 0
+ 
+        return self.getHeight(root.left) - self.getHeight(root.right)
+ 
+    def insert(self, root, key, object):
+        if not root:
+            return Node(key,object)
+        elif key < root.key:
+            root.left = self.insert(root.left, key,object)
         else:
-            root.right = self.insert(root.right, key)
+            root.right = self.insert(root.right, key,object)
         root.height = 1 + max(self.getHeight(root.left),self.getHeight(root.right))
         balance = self.getBalance(root)
         
-        if balance > 1 and key < root.left.val:
-            return self.rightRotate(root)
+        if balance > 1 and key < root.left.key:
+            return self.Rotateright(root)
         
-        if balance < -1 and key > root.right.val:
-            return self.leftRotate(root)
+        if balance < -1 and key > root.right.key:
+            return self.Rotateleft(root)
         
-        if balance > 1 and key > root.left.val:
-            root.left = self.leftRotate(root.left)
-            return self.rightRotate(root)
+        if balance > 1 and key > root.left.key:
+            root.left = self.Rotateleft(root.left)
+            return self.Rotateright(root)
         
-        if balance < -1 and key < root.right.val:
-            root.right = self.rightRotate(root.right)
-            return self.leftRotate(root)
- 
+        if balance < -1 and key < root.right.key:
+            root.right = self.Rotateright(root.right)
+            return self.Rotateleft(root)
+        self.root=root
         return root
-    def Rebalance(N):
-        P = N.parent
-        if N.left.height > N.right.height+1:
-                return
-
-
-
-
-
-def printTree(node, level=0):
-    if node != None:
-        printTree(node.left, level + 1)
-        print(' ' * 4 * level + '->', node.key)
-        printTree(node.right, level + 1)
 
 
 

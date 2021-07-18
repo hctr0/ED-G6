@@ -25,11 +25,12 @@ def create_local_list_users():
         db.session.close()
     result_lista = tasks_schema.dump(all_task)
     #print(type(result_lista), result_lista[0])
-    global lista_nodos
-    lista_nodos = funciones.AgregarDatosListas(result_lista)
+    global arbol
+    print(result_lista[0].get('id'))
+    arbol = funciones.AgregarDatosListas(result_lista)
 @auth.route('/login')
 def login():
-    #create_local_list_users()
+    create_local_list_users()
     #print(User.query.all())
     return render_template('login.html')
 
@@ -39,46 +40,33 @@ def login_post():
     global password
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
-    #print(funciones.BuscarDato(lista_nodos, user).user)
     user2 = User.query.filter_by(user=user).first()
-    if not user2 or not user2.password == password:
-        flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
-    login_user(user2, remember=remember)
-    if(int.from_bytes(user2.role,byteorder='big')  ):
-        return redirect(url_for('main.profile'))
+    if  funciones.ExisteDato_boolean(arbol,user2.id):
+        user1 = funciones.BuscarDato(arbol, user2.id)
+        print("user 1 ",user1)
+        if user1.get('password')==password:
+            try:
+                user2 = User.query.filter_by(user=user1.get('user')).first()
+            except Exception as error:
+                raise error
+            finally:
+                db.session.close_all()
+                db.session.remove()
+            try:
+                login_user(user2, remember=remember, duration=True)    
+            except Exception as error:
+                raise error
+            finally:
+                db.session.close()
+           
+            print('paso1')
+            return redirect(url_for('main.profile'))
+        else:
+            flash('Please check your login details and try again.')
+            return redirect(url_for('main.profile'))
     else:
-        return redirect(url_for('main.profileA'))
-
-    
-    # if the above check passes, then we know the user has the right credentials
-    
-    #if  funciones.ExisteDato_boolean(lista_nodos,user):
-    #    user1 = funciones.BuscarDato(lista_nodos, user)
-    #    print("user 1 ",user1)
-    #    if user1.password==password:
-    #        try:
-    #            user2 = User.query.filter_by(user=user1.user).first()
-    #        except Exception as error:
-    #            raise error
-    #        finally:
-    #            db.session.close_all()
-    #            db.session.remove()
-    #        try:
-    #            login_user(user2, remember=remember, duration=True)    
-    #        except Exception as error:
-    #            raise error
-    #        finally:
-    #            db.session.close()
-            
-    #        print('paso1')
-    #        return redirect(url_for('main.profile'))
-    #    else:
-    #        flash('Please check your login details and try again.')
-    #        return redirect(url_for('main.profile'))
-    #else:
-    #    flash('Please check your login details and try again.')
-    #    return redirect(url_for('main.profile'))
+        flash('Please check your login details and try again.')
+        return redirect(url_for('main.profile'))
         
     
 
