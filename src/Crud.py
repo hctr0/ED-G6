@@ -7,7 +7,7 @@ class Crud:
         arbol.search(arbol.root, value)
     #FUNCION DISEÑADA PARA INSERTAR UN DATO
     def InsertDato(self, arbol, data):
-        arbol.insert(arbol.node.key,data)
+        arbol.insert(arbol.root,data.id,data)
     #ESTA FUNCIÓN ELIMINA UN DATO DE LA ESTRUCTURA
     def EliminarDato(self, arbol,posicion,lista):
         arbol.eliminarNodo(posicion)
@@ -27,11 +27,12 @@ class Crud:
     def ConsultaTodo(self,arbol):
         for i in range(arbol.retornarTamano()):
             print(arbol.devolverData(i))
-    def AgregarDatosListas(self, lista):
+    def AgregarDatosArbol(self, lista,candtidaddatos):
         nodo=Node(lista[0].get('id'),lista[0])
         arbol = AVLtree(nodo)
         i=1
-        while(i<1000):
+        CANTIDAD_DATOS=candtidaddatos
+        while(i<CANTIDAD_DATOS):
             arbol.insert(arbol.root,lista[i].get('id'),lista[i])
             i+=1
         return arbol

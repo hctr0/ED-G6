@@ -61,7 +61,7 @@ class ListNodes:
                 nodo = nodo.siguiente
                 i+=1
     def eliminarNodo(self, posicion):
-        nodo = self.Nodo
+        nodo = self.head
         i = 0
         while(i<self.tam):
             if(i==posicion):

@@ -7,9 +7,11 @@ from .models import  User
 from src.resources.ListNodes import *
 from . import db
 from .models import User, Solicitudes
+from .CrudF import *
+from time import time
+import numpy as np
 authA = Blueprint('authA', __name__)
-
-
+colaPrioridadSolicitud =CrudF()
 
 #UN ESTUDIANTE LOGEADO PUEDE ACCEDER AQUI, BUSCAR UNA FORMA DE NO VALIDAR EL INGRESO
 # USANDO EL BYTE DE LA BASE DE DATOS
@@ -31,6 +33,7 @@ def historialsolicitudesA():
 @authA.route('/Solicitudes_Pendientes_Admin', methods=['GET','POST'])
 @login_required
 def solicitudespendientes():
-    idUser=current_user.id
-    solicitud_usuario = db.session.query(Solicitudes).all()
+    solicitudes = db.session.query(Solicitudes).all()
+    colaPrioridad= colaPrioridadSolicitud.crearColaPrioridad(solicitudes)
+    solicitud_usuario=colaPrioridadSolicitud.devolverLista(colaPrioridad)
     return render_template('todas_las_solicitudesA.html', solicitud_usuario=solicitud_usuario)
