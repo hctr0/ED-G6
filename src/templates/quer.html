@@ -19,9 +19,14 @@
             </select>
             <button  style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Solicitud</button>
         </form>
+        <button class="info" name="info" id="info" role="button" >?</button>
         <form method="POST" action="/mis_solicitudes">
             <button  style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Mis solicitudes</button>
         </form>
     </div>
 </div>
+<script>const boton = document.getElementById("info")
+    boton.onclick=function(){
+        window.location.replace('http://www.legal.unal.edu.co/rlunal/home/tmt.jsp')
+      }</script>
 {% endblock %}
