@@ -1,5 +1,5 @@
 from src.resources.ListNodes import *
-class PriorityQueue(object):
+class ColaPrioridad(object):
     def __init__(self):
         self.queue = None
 
@@ -11,8 +11,6 @@ class PriorityQueue(object):
             self.queue=ListNodes(data)
             return
         self.queue.agregarNodo(data)
-  
-    # for popping an element based on Priority
     def delete(self):
         try:
             min = 0

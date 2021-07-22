@@ -31,7 +31,7 @@ def profile():
     rol=''
     print(user_rol)
     if user_rol:
-        rol='estudent'
+        rol='estudiante'
     else:
         rol='admin'
     return render_template('profile.html', user=user,rol=rol)
@@ -44,7 +44,7 @@ def profileA():
         print(user_rol)        
         rol=''
         if user_rol:
-            rol='estudent'
+            rol='estudiante'
         else:
             rol='admin'
         return render_template('profileA.html', user=user, rol=rol)

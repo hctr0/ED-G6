@@ -25,29 +25,24 @@ class AVLtree():
         return root.height
 
     
-    def Rotateleft(self, z):
-        y = z.right
-        T2 = y.left
-
-        y.left = z
-        z.right = T2
-
-        z.height = 1 + max(self.getHeight(z.left), self.getHeight(z.right))
-        y.height = 1 + max(self.getHeight(y.left), self.getHeight(y.right))
-        return y
+    def Rotateleft(self, node):
+        node2 = node.right
+        T2 = node2.left
+        node2.left = node
+        node.right = T2
+        node.height = 1 + max(self.getHeight(node.left), self.getHeight(node.right))
+        node2.height = 1 + max(self.getHeight(node2.left), self.getHeight(node2.right))
+        return node2
 
 
-    def Rotateright(self,z):
-        y = z.left
-        T3 = y.right
-
-        y.right = z
-        z.left = T3
-
-        z.height = 1 + max(self.getHeight(z.left), self.getHeight(z.righy))
-
-        y.height = 1 + max(self.getHeight(y.left), self.getHeight(y.right))
-        return y
+    def Rotateright(self,node):
+        node2 = node.left
+        T3 = node2.right
+        node2.right = node
+        node.left = T3
+        node.height = 1 + max(self.getHeight(node.left), self.getHeight(node.righy))
+        node2.height = 1 + max(self.getHeight(node2.left), self.getHeight(node2.right))
+        return node2
 
 
     def search(self, root, key):

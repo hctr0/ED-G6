@@ -5,7 +5,7 @@ from src.resources.mapPrioridad import *
 
 class CrudF:
     def crearColaPrioridad(self,lista):
-        cola = PriorityQueue()
+        cola = ColaPrioridad()
         for i in range(len(lista)):
             prioridad=CrudF.crearLLave(lista[i])
             valor=lista[i]

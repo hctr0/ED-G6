@@ -32,13 +32,14 @@ def create_local_list_users():
     """ cantidad_datos=1000
     cantidadData=[]
     tiempo=[]
-    iduser=800
     while(cantidad_datos<= len(result_lista)):
+        startTime = time()
         arbol = funciones.AgregarDatosArbol(result_lista,cantidad_datos)
+        lastTime = time() -startTime
         cantidadData.append(cantidad_datos)
         cantidad_datos+=2500
-        startTime = time()
-        lastTime = time() -startTime
+        
+        
         iduser+=2500
         tiempo.append(lastTime)
         print(lastTime)
