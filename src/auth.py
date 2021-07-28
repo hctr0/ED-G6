@@ -28,7 +28,7 @@ def create_local_list_users():
         db.session.close()
     result_lista = tasks_schema.dump(all_task)
     #print(type(result_lista), result_lista[0])
-    global arbol
+    global hash
     """ cantidad_datos=1000
     cantidadData=[]
     tiempo=[]
@@ -47,7 +47,7 @@ def create_local_list_users():
     dat=np.array(cantidadData)
     np.savetxt('tiempo.csv',tie,delimiter=',')
     np.savetxt('datos.csv',dat,delimiter=',') """
-    arbol = funciones.AgregarDatosArbol(result_lista,len(result_lista))
+    hash = funciones.AgregarDatosHash(result_lista,len(result_lista))
 @auth.route('/login')
 def login():
     create_local_list_users()
@@ -65,12 +65,11 @@ def login_post():
         flash('Please check your login details and try again.')
         return redirect(url_for('main.profile'))
 
-    if  funciones.ExisteDato_boolean(arbol,user2.id):
-        user1 = funciones.BuscarDato(arbol, user2.id)
-        print("user 1 ",user1)
-        if user1.get('password')==password:
+    if  funciones.ExisteDato_boolean(hash,user2.id):
+        passw = funciones.BuscarDato(hash, user2.id)
+        if passw==password:
             try:
-                user2 = User.query.filter_by(user=user1.get('user')).first()
+                user2 = User.query.filter_by(user=user2.get('user')).first()
             except Exception as error:
                 raise error
             finally:
@@ -114,7 +113,7 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
     user3=db.session.query(User).filter_by(user=user).first()
-    funciones.InsertDato(arbol,user3)
+    funciones.InsertDato(hash,user3)
     db.session.close()
     if user1: 
         flash('Email address already exists')
