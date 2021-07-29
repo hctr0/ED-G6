@@ -40,8 +40,7 @@ def profile():
 def profileA():
         user =current_user.user
         user_rol = int.from_bytes(current_user.role,byteorder='big')        
-        rol=''
-        print(user_rol)        
+        rol=''       
         rol=''
         if user_rol:
             rol='estudiante'

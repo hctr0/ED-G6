@@ -48,6 +48,7 @@ def create_local_list_users():
     np.savetxt('tiempo.csv',tie,delimiter=',')
     np.savetxt('datos.csv',dat,delimiter=',') """
     hash = funciones.AgregarDatosHash(result_lista,len(result_lista))
+    #hash = funciones.AgregarDatosHash(result_lista,50000)
 @auth.route('/login')
 def login():
     create_local_list_users()
@@ -65,28 +66,22 @@ def login_post():
         flash('Please check your login details and try again.')
         return redirect(url_for('main.profile'))
 
-    if  funciones.ExisteDato_boolean(hash,user2.id):
-        passw = funciones.BuscarDato(hash, user2.id)
-        if passw==password:
-            try:
-                user2 = User.query.filter_by(user=user2.get('user')).first()
-            except Exception as error:
-                raise error
-            finally:
-                db.session.close_all()
-                db.session.remove()
-            try:
-                login_user(user2, remember=remember, duration=True)    
-            except Exception as error:
-                raise error
-            finally:
-                db.session.close()
-           
-            print('paso1')
-            return redirect(url_for('main.profile'))
-        else:
-            flash('Please check your login details and try again.')
-            return redirect(url_for('main.profile'))
+    passw = funciones.BuscarDato(hash, user2.id)
+    if passw==password:
+        try:
+            user2 = User.query.filter_by(user=user2.user).first()
+        except Exception as error:
+            raise error
+        finally:
+            db.session.close_all()
+            db.session.remove()
+        try:
+            login_user(user2, remember=remember, duration=True)    
+        except Exception as error:
+            raise error
+        finally:
+            db.session.close()
+        return redirect(url_for('main.profile'))
     else:
         flash('Please check your login details and try again.')
         return redirect(url_for('main.profile'))
@@ -129,14 +124,11 @@ def solicitudes():
 @auth.route('/solicitudes', methods=['POST'])
 @login_required
 def solicitudes_post():
-    print(request.form)
     global solicitud
     solicitud = request.form.get('Solicitudes')
     return render_template('formulario.html', solicitud=solicitud)
 @auth.route('/formulario', methods=['POST'])
 def formulario_post():
-    print(request.form.get)
-    print(solicitud)
     nombre = request.form.get('nombre')
     programa = request.form.get('programa')
     justificacion= request.form.get('justificacion')

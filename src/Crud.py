@@ -16,14 +16,6 @@ class Crud:
     def EliminarDato(self, arbol,posicion,lista):
         arbol.eliminarNodo(posicion)
 
-    #ESTA FUNCIÓN BUSCA UN DATO EN LA ESTRUCTURA
-    def ExisteDato_boolean(self,arbol, user):
-        try:
-            arbol.search(arbol.root, user)
-            return True
-        except:
-            return False
-            
     def BuscarDato(self,hash, user):
         if hash.hasKey(user):
             return hash.getKey(user)
@@ -36,13 +28,13 @@ class Crud:
     def AgregarDatosHash(self, lista,candtidaddatos):
         #nodo=Node(lista[0].get('id'),lista[0])
         #arbol = AVLtree(nodo)
-        hash=HashTable()
-        i=1
+        hash=HashTable(11)
+        i=0
         CANTIDAD_DATOS=candtidaddatos
         while(i<CANTIDAD_DATOS):
             user = mapPrioridad(lista[i].get('id'),lista[i].get('password'))
             pos = hash.hashFunction()
-            hash.insert(pos,user)
+            hash.insert(2,user)
             i+=1
         return hash
     def Ingreso(self, arbol, user):

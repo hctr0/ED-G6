@@ -1,27 +1,54 @@
 import random
-import src.resources.mapPrioridad
 class HashTable():
-    def __init__(self):
-        self.map=[None]*11
-        self.a=2
+    def __init__(self, size):
+        self.map=[None]*size
         self.n=0
-        self.loadFactor=int(self.n/len(self.map))
     def hashFunction(self):
-        k=random.randint(0,len(self.map))
-        hashPos = (self.a*k)%len(self.map)
+        k=random.randint(0,len(self.map)-1)
+        hashPos = (2*k)%len(self.map)
         return hashPos
+    def loadFactor(self):
+        return int(self.n/len(self.map))
+
     def insert(self, pos, map):
-        chain =[]
-        chain.append(map)
-        self.map[pos]=chain
+        if self.map[pos]==None:
+            self.map[pos]=[]
+        self.map[pos].append(map)
+        self.n+=1
+
+        self.rehasing()
     def getKey(self, llave):
         for map in self.map:
-            for value in map:
-                if value.prioridad==llave:
-                    return value.value
+            if map!=None:
+                for value in map:
+                    if value.prioridad==llave:
+                        return value.value
+    def rehasing(self):
+        if self.loadFactor()>0.9:
+            """ print(self.n, 'numero de items')
+            print(len(self.map), 'm-cardinalidad')
+            print(self.loadFactor()) """
+            i=0
+            newhash=HashTable(len(self.map)*2+1)
+            for map in self.map:
+                if map!=None:
+                    for value in map:
+                        pos= newhash.hashFunction()
+                        newhash.insert(pos,value)
+            self.map = newhash.map
+            self.n=newhash.n
+            print(len(self.map), 'map Nuevo')
+            return
+
+        
+            
+            
+
+
     def hasKey(self, llave):
         for map in self.map:
-            for value in map:
-                if value.prioridad==llave:
-                    return True
+            if map!=None:
+                for value in map:
+                    if value.prioridad==llave:
+                        return True
         return False
