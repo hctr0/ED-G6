@@ -12,6 +12,10 @@ class Crud:
         user = mapPrioridad(data.get('id'),data.get('password'))
         pos = hash.hashFunction()
         hash.insert(pos,user)
+    def InsertDato2(self, hash, data):
+        user = mapPrioridad(data.id,data.password)
+        pos = hash.hashFunction()
+        hash.insert(pos,user)
     #ESTA FUNCIÓN ELIMINA UN DATO DE LA ESTRUCTURA
     def EliminarDato(self, arbol,posicion,lista):
         arbol.eliminarNodo(posicion)

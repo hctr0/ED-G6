@@ -25,15 +25,42 @@ def solicitudesA():
 #ESTO NECESITA MOSTRAR LOS DATOS EN LA LISTA Y TERMINADO
 
 
-@authA.route('/Historial_Administrativo', methods=['GET','POST'])
+@authA.route('/Historial_Administrativo', methods=['POST'])
 @login_required
 def historialsolicitudesA():
-    return render_template('historialsolicitudesA.html')
+    solicitudes = db.session.query(Solicitudes).all()
+    colaPrioridad= colaPrioridadSolicitud.crearColaPrioridadConRespuesta(solicitudes)
+    solicitud2=colaPrioridadSolicitud.devolverLista(colaPrioridad)
+    return render_template('historialsolicitudesA.html',solicitud_usuario=solicitud2)
 
 @authA.route('/Solicitudes_Pendientes_Admin', methods=['GET','POST'])
 @login_required
 def solicitudespendientes():
+    global solicitud_usuario
     solicitudes = db.session.query(Solicitudes).all()
-    colaPrioridad= colaPrioridadSolicitud.crearColaPrioridad(solicitudes)
+    colaPrioridad= colaPrioridadSolicitud.crearColaPrioridadSinRespuesta(solicitudes)
     solicitud_usuario=colaPrioridadSolicitud.devolverLista(colaPrioridad)
     return render_template('todas_las_solicitudesA.html', solicitud_usuario=solicitud_usuario)
+@authA.route('/solicitudesAdmin', methods=['POST'])
+@login_required
+def respondQuery():
+    solucionQuery=request.form.get('Solicitudes')
+    valores=solucionQuery.split()
+    solicitudSeleccionada= valores[0]
+    idUser=int(valores[1])
+    global querRespond
+    for query in solicitud_usuario:
+        #print(query.idUser,idUser,"query",query.solicitud,solicitudSeleccionada,query.idUser==idUser,query.solicitud==solicitudSeleccionada)
+        if (query.idUser==idUser and query.solicitud==solicitudSeleccionada):
+            querRespond=query
+            return render_template('solicitudesAdmin.html', solicitud=query)
+@authA.route('/respuestaAdmin', methods=['POST'])
+@login_required
+def respuestaAdmin():
+    respuesta = request.form.get('Respuesta')
+    solicitud1=db.session.query(Solicitudes).filter_by(id = querRespond.id).first()
+    solicitud1.respuesta = respuesta
+    db.session.commit()
+    db.session.close()
+    return render_template('formulario-completado.html')
+    

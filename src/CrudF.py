@@ -12,6 +12,24 @@ class CrudF:
             solicitud=mapPrioridad(prioridad,valor)
             cola.insert(solicitud)
         return cola
+    def crearColaPrioridadSinRespuesta(self,lista):
+        cola = ColaPrioridad()
+        for i in range(len(lista)):
+            if(not lista[i].respuesta):
+                prioridad=CrudF.crearLLave(lista[i])
+                valor=lista[i]
+                solicitud=mapPrioridad(prioridad,valor)
+                cola.insert(solicitud)
+        return cola
+    def crearColaPrioridadConRespuesta(self,lista):
+        cola = ColaPrioridad()
+        for i in range(len(lista)):
+            if(lista[i].respuesta):
+                prioridad=CrudF.crearLLave(lista[i])
+                valor=lista[i]
+                solicitud=mapPrioridad(prioridad,valor)
+                cola.insert(solicitud)
+        return cola
     def crearLLave(solicitud):
        prioridad=0
        if solicitud.solicitud.lower() == "traslado":

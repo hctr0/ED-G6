@@ -6,23 +6,31 @@
 
 
 <!--LA TABLA ES FEA, NECESARIO ARREGLARLA -->
-<table>
+<table style="margin: 6ex; position: relative; top: -100px; left: 250px; background-color: #1b8d7f ">
     <tr>
-        <th>idUser</th>
-      <th>Tipo solicitud</th>
-      <th>          Respuesta</th>
+      <th style="background-color:  #117a65 ; border-radius:2px ; width:40%">idUser</th>
+      <th style="background-color:  #117a65 ; width:40% ; border-radius:3px ">Tipo solicitud</th>
+      <th style="background-color:  #117a65 ; width:40%;border-radius:3px ">          Respuesta               </th>
     </tr>  
       {% for solicitud in solicitud_usuario %}
       <tr>
+        {% if solicitud.respuesta %}
+        {% else %}
         <td>{{solicitud.idUser}}</td>
         <td>{{solicitud.solicitud}}</td>
-        {% if solicitud.respuesta %}
-        <td>{{solicitud.respuesta}}</td>
-        {% else %}
         <td> No hay respuesta</td>
         {% endif %}
       </tr>
       {% endfor %}
-  </table>
-
+</table>
+<form method="POST" action="/solicitudesAdmin">
+  <select name = "Solicitudes">
+    {% for solicitud in solicitud_usuario %}
+    <option value="{{solicitud.solicitud}} {{solicitud.idUser}}">{{solicitud.solicitud}}</option>
+    {% endfor %}
+      
+  </select>
+  <button  style="margin-top: 20px" class="button is-block is-info is-large is-fullwidth">Solicitud</button>
+</form>
 {% endblock %}
+

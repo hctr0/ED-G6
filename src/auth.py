@@ -33,14 +33,13 @@ def create_local_list_users():
     cantidadData=[]
     tiempo=[]
     while(cantidad_datos<= len(result_lista)):
+        hash = funciones.AgregarDatosHash(result_lista,cantidad_datos)
+        user3=db.session.query(User).filter_by(id=860).first()
         startTime = time()
-        arbol = funciones.AgregarDatosArbol(result_lista,cantidad_datos)
+        funciones.BuscarDato(hash,user3.id)
         lastTime = time() -startTime
         cantidadData.append(cantidad_datos)
         cantidad_datos+=2500
-        
-        
-        iduser+=2500
         tiempo.append(lastTime)
         print(lastTime)
     tie=np.array(tiempo)
@@ -108,7 +107,7 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
     user3=db.session.query(User).filter_by(user=user).first()
-    funciones.InsertDato(hash,user3)
+    funciones.InsertDato2(hash,user3)
     db.session.close()
     if user1: 
         flash('Email address already exists')

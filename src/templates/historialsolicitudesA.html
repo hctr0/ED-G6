@@ -1,30 +1,27 @@
 {% extends "base.html" %}
 
 <!--ESTO DEBE MOSTRAR LA LISTA PERO USANDO LAS SOLICITUDES QUE SE ENCUENTREN EN LA BASE DE DATOS -->
-{% block content %}
+{%block content%}
+<h3 class="title"> Solicitudes Pendientes </h3>
 
-<h3 class="title">Historial de solicitudes</h3>
+
 <!--LA TABLA ES FEA, NECESARIO ARREGLARLA -->
-
-<table width=100% class="table table-hover table-dark" >
-    <thead>
-        <tr>
-          <!-- FILAS: -->
-            <th scope="col" >ID</th>
-            <th scope="col">Tipo de solicitud</th>
-            <th scope="col">Estado</th>
-            <th scope="col">
-
-        </tr>
-    </thead>
-    <tbody>
-        <!-- COLUMNAS: -->
-            <tr>
-                <td>Value for Id</td>
-                <td>Value for Solicitud</td>
-                  <td>Value for Estado</td>
-            </tr>
-    </tbody>
+<table style="margin: 6ex; position: relative; top: -100px; left: 250px; background-color: #1b8d7f ">
+    <tr>
+        <th style="background-color:  #117a65 ; border-radius:2px ; width:40%">idUser</th>
+      <th style="background-color:  #117a65 ; width:40% ; border-radius:3px ">Tipo solicitud</th>
+      <th style="background-color:  #117a65 ; width:40%;border-radius:3px ">          Respuesta              </th>
+    </tr>  
+      {% for solicitud in solicitud_usuario %}
+      <tr>
+        {% if solicitud.respuesta %}
+        <td>{{solicitud.idUser}}</td>
+        <td>{{solicitud.solicitud}}</td>
+        <td>{{solicitud.respuesta}}</td>
+        {% else %}
+        {% endif %}
+      </tr>
+      {% endfor %}
 </table>
-
 {% endblock %}
+

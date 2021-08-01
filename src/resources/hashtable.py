@@ -39,12 +39,6 @@ class HashTable():
             self.n=newhash.n
             print(len(self.map), 'map Nuevo')
             return
-
-        
-            
-            
-
-
     def hasKey(self, llave):
         for map in self.map:
             if map!=None:
